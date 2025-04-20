@@ -89,10 +89,24 @@ app.delete("/delete", async(req,res)=>{
 })
 
 //update the data of the user with the help of userID
-app.patch("/update", async(req,res)=>{
-    const userId  = req.body.userId;
+app.patch("/update/:userId", async(req,res)=>{
+    const userId  = req.params?.userId;
     const data = req.body;
+
     try{
+        const ALLOWED_UPDATES = [ "photoUrl", "about", "gender", "age", "skills" ];
+
+        const isAllowed = Object.keys(data).every((k) =>
+            ALLOWED_UPDATES.includes(k)
+        );
+    
+         if(!isAllowed){
+            throw new Error("updates not allowed");
+         }
+         if(data?.skills.length >10){
+            throw new Error("Skills size should be less than 10");
+         }
+
         const user = await User.findByIdAndUpdate({_id:userId}, data, 
             {   
                 returnDocument:"Before",
@@ -100,7 +114,7 @@ app.patch("/update", async(req,res)=>{
             });
         res.send("data is updated successfully");
     }catch(err){
-        res.status(404).send("Something Went wrong" + err.message);
+        res.status(404).send("Something Went wrong " + err.message);
     }
 })
 

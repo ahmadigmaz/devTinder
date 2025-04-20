@@ -16,22 +16,22 @@ const userSchema = mongoose.Schema({
         trim:true,
     },
     emailId:{
-        type:String,
-        required:true,
-        unique:true,
-        lowercase:true,
-        trim:true,
+        type: String,
+        required: [true, "Email is required"],
+        unique: true,
+        lowercase: true, // automatically converts to lowercase
+        trim: true,      // removes extra spaces
+        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address"]
     },
     password:{
         type: String,
         required: [true, "Password is required"],
         minlength: [8, "Password must be at least 8 characters long"],
-        validate: {
-          validator: function (value) {
-            // At least one uppercase, one lowercase, one digit, one special char
-            return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(value);
-          },
-          message: "Password must contain uppercase, lowercase, number, and special character"
+        validate: function(value) {
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!regex.test(value)) {
+              throw new Error("Password must have uppercase, lowercase, number, and special character");
+            }
         }
     },
     age:{
@@ -56,11 +56,12 @@ const userSchema = mongoose.Schema({
     },
     about:{
         type:String,
+        maxLength: 100,
         default: "Default Value"
     },
-    skills:{
-        type:[String]
-    }
+    skills: {
+        type: [String]
+      }      
 },{
     timestamps:true
 })
