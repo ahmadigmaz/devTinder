@@ -7,12 +7,9 @@ const User = require("./models/user");
 app.use(express.json());
 
 
-
-app.post("/signup", async (req,res)=>{
-
 //creating a new instance of the user model
+app.post("/signup", async (req,res)=>{
     const user  = new User(req.body);
-
     try{
         await user.save();
         res.send("data is successfully added into the database");
@@ -20,6 +17,7 @@ app.post("/signup", async (req,res)=>{
         res.status(500).send("Something went Wrong" + err.message);
     }
 })
+
 //get the user from the database with the help of the emailId
 app.get("/user",async (req,res)=>{
     const email = req.body.emailId;
@@ -36,7 +34,6 @@ app.get("/user",async (req,res)=>{
 })
 
 //if there is multiple users with the same entries but we want to fetch one from them
-
 app.get("/user1",async (req,res)=>{
     const email = req.body.emailId;
 
@@ -50,10 +47,21 @@ app.get("/user1",async (req,res)=>{
     }catch(err){
         res.status(404).send("user not found");
     }
-   
+})
+//get the user from the database by its Id;
+app.get("/user2",async (req,res)=>{
+    const userId = req.body._id;
 
-
-
+    try{
+        const user = await User.findById({_id:userId});
+        if(!user){
+            res.send("user not found")
+        }else{
+            res.send(user);
+        }
+    }catch(err){
+        res.status(404).send("user not found");
+    }
 })
 
 //get all the users from the database 
@@ -65,6 +73,38 @@ app.get("/feed", async (req,res)=>{
         res.status(404).send("something went wrong");
     }
 })
+
+//delete user from the database by Model.findByIdAndDelete()
+
+app.delete("/delete", async(req,res)=>{
+
+    const userId = req.body._id;
+    try{
+       // const user = await User.findByIdAndDelete({userId}); not working for me right now, I dont know why.
+        const user = await User.findByIdAndDelete({_id:userId});
+        res.send("user is deleted");
+    }catch{(err)
+        res.status(404).send("something went wrong");
+    }
+})
+
+//update the data of the user. ex = name
+app.patch("/update", async(req,res)=>{
+    const data  = req.body;
+    try{
+        const user = await User.findOneAndUpdate(data, { lastName: 'Khan' });
+        res.send("first name is updated successfully");
+    }catch(err){
+        res.status(404).send("Something Went wrong");
+    }
+})
+
+
+
+
+
+
+
 
 
 
