@@ -88,12 +88,26 @@ app.delete("/delete", async(req,res)=>{
     }
 })
 
-//update the data of the user. ex = name
+//update the data of the user with the help of userID
 app.patch("/update", async(req,res)=>{
-    const data  = req.body;
+    const userId  = req.body.userId;
+    const data = req.body;
     try{
-        const user = await User.findOneAndUpdate(data, { lastName: 'Khan' });
-        res.send("first name is updated successfully");
+        const user = await User.findOneAndUpdate({_id:userId}, data, {returnDocument:"Before"});
+        console.log(user);
+        res.send("data is updated successfully");
+    }catch(err){
+        res.status(404).send("Something Went wrong");
+    }
+})
+
+//update the data of the user with the help of the emailId
+app.patch("/update1",async (req,res)=>{
+    const email = req.body.emailId;
+    const data = req.body;
+    try{
+        const user =  await User.findOneAndUpdate({emailId:email},data);
+        res.send("user data updated successfully");
     }catch(err){
         res.status(404).send("Something Went wrong");
     }
