@@ -14,7 +14,7 @@ app.post("/signup", async (req,res)=>{
         await user.save();
         res.send("data is successfully added into the database");
     }catch(err){
-        res.status(500).send("Something went Wrong" + err.message);
+        res.status(500).send("Something went Wrong " + err.message);
     }
 })
 
@@ -93,11 +93,14 @@ app.patch("/update", async(req,res)=>{
     const userId  = req.body.userId;
     const data = req.body;
     try{
-        const user = await User.findOneAndUpdate({_id:userId}, data, {returnDocument:"Before"});
-        console.log(user);
+        const user = await User.findByIdAndUpdate({_id:userId}, data, 
+            {   
+                returnDocument:"Before",
+                runValidators: true
+            });
         res.send("data is updated successfully");
     }catch(err){
-        res.status(404).send("Something Went wrong");
+        res.status(404).send("Something Went wrong" + err.message);
     }
 })
 
