@@ -94,7 +94,7 @@ app.patch("/update/:userId", async(req,res)=>{
     const data = req.body;
 
     try{
-        const ALLOWED_UPDATES = [ "photoUrl", "about", "gender", "age", "skills" ];
+        const ALLOWED_UPDATES = [ "firstName", "lastName","photoUrl", "about", "gender", "age", "skills" ];
 
         const isAllowed = Object.keys(data).every((k) =>
             ALLOWED_UPDATES.includes(k)
@@ -129,15 +129,6 @@ app.patch("/update1",async (req,res)=>{
         res.status(404).send("Something Went wrong");
     }
 })
-
-
-
-
-
-
-
-
-
 
 
 

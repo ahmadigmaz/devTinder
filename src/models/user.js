@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const userSchema = mongoose.Schema({
     firstName:{
@@ -21,16 +22,19 @@ const userSchema = mongoose.Schema({
         unique: true,
         lowercase: true, // automatically converts to lowercase
         trim: true,      // removes extra spaces
-        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Please enter a valid email address"]
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error("Email is Invalid");
+            }
+        }
     },
     password:{
         type: String,
         required: [true, "Password is required"],
         minlength: [8, "Password must be at least 8 characters long"],
-        validate: function(value) {
-            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-            if (!regex.test(value)) {
-              throw new Error("Password must have uppercase, lowercase, number, and special character");
+        validate(value){
+            if(!validator.isStrongPassword(value)){
+                throw new Error("Your password is not strong");
             }
         }
     },
@@ -52,7 +56,12 @@ const userSchema = mongoose.Schema({
     },
     photoUrl:{
         type:String,
-        default: "https/dummyimage/cbijd/242/sv"
+        default: "https://stock.adobe.com/search?k=dummy",
+        validate(value){
+            if(!validator.isURL(value)){
+                throw new Error("URL is Invalid");
+            }
+        }
     },
     about:{
         type:String,
