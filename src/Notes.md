@@ -34,3 +34,8 @@ to read a cookie we need a npm libraray , which is called cookie parser.
 
 
 jason web token(jwt), 
+
+
+if app.use(a,b) = then first is work as req and second worked as res
+if app.use(a,b,c) = then first is work as req, second is work as res and the third one is worked as next;
+if(a,b,c,d) = a = error

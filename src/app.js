@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { adminAuth, userAuth } = require("./middlewares/auth");
+const {userAuth } = require("./middlewares/auth");
 const {connectDb} = require("./config/database");
 const User = require("./models/user");
 const {validation} = require("./utils/validation");
@@ -44,22 +44,10 @@ app.post("/login",async (req,res)=>{
 })
 
 //profile API
-app.get("/profile",async (req,res)=>{
+app.get("/profile",userAuth,async (req,res)=>{
+
         try{
-
-            const cookies = req.cookies;
-            const token = cookies.token;
-            if(!token){
-                throw new Error("Token is not available");
-            }
-
-            //validate the token
-            const decodedMessage = await jwt.verify(token,"Dev@Tinder$123");
-
-            const user = await User.findById(decodedMessage._id);
-            if(!user){
-                throw new user("user is not exist in db");
-            }
+            const user = req.user;
             res.send(user);
 
         }catch(err){
