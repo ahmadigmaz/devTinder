@@ -2,3 +2,26 @@ This is the files which helps to taken down the notes.
 20-04-2025-Today we are learning the data sanitization, input validation and a lot more.
 
 API level validations and Schema level validations.
+
+{
+    name: "igmaz",
+    rollNumer: 12
+}
+
+
+const data = req.body;
+
+const abc = Object.keys(data).every((key)=>
+        xys.includes(key);
+)
+
+
+
+data should be validates first, then the password should be incripted
+
+for validation ou should validate the firstName, lastName, email, strong password, 
+
+
+
+create a login api=> what you have to do is that first check that the email user send is valid one or not then check the email which user send is present in our database or not then fetch the password of that user from that database and user the function bcrypt.compare(password, dbPass);
+and this function returns the bullion and we got the bullion values from the database and according;y we can do the same.
