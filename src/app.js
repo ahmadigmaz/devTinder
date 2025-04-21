@@ -7,7 +7,11 @@ const {validation} = require("./utils/validation");
 app.use(express.json());
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+const jwt = require("jsonwebtoken");
 
+//login API
 app.post("/login",async (req,res)=>{
 
     try{
@@ -22,6 +26,13 @@ app.post("/login",async (req,res)=>{
         }
         const isPasswordValid = await bcrypt.compare(password,user.password);
         if(isPasswordValid){
+            //JWT token-
+            const token = jwt.sign({_id:user._id}, "Dev@Tinder$123");
+            //console.log(token);
+
+            //add a jwt token into the cookie.
+            res.cookie("token",token);
+
             res.send("logIn successfully");
         }else{
             throw new Error("Invalid Credential");
@@ -32,7 +43,31 @@ app.post("/login",async (req,res)=>{
    }
 })
 
+//profile API
+app.get("/profile",async (req,res)=>{
+        try{
 
+            const cookies = req.cookies;
+            const token = cookies.token;
+            if(!token){
+                throw new Error("Token is not available");
+            }
+
+            //validate the token
+            const decodedMessage = await jwt.verify(token,"Dev@Tinder$123");
+
+            const user = await User.findById(decodedMessage._id);
+            if(!user){
+                throw new user("user is not exist in db");
+            }
+            res.send(user);
+
+        }catch(err){
+            res.send("something went wrong in profile: " + err.message);
+        }
+})
+
+//signUp API
 app.post("/signup", async (req,res)=>{
     
     try{
@@ -81,6 +116,7 @@ app.get("/user1",async (req,res)=>{
         res.status(404).send("user not found");
     }
 })
+
 //get the user from the database by its Id;
 app.get("/user2",async (req,res)=>{
     const userId = req.body._id;
@@ -108,7 +144,6 @@ app.get("/feed", async (req,res)=>{
 })
 
 //delete user from the database by Model.findByIdAndDelete()
-
 app.delete("/delete", async(req,res)=>{
 
     const userId = req.body._id;
@@ -163,8 +198,7 @@ app.patch("/update1",async (req,res)=>{
     }
 })
 
-
-
+//database connection
 connectDb().then(()=>{
     console.log("database is connected");
 

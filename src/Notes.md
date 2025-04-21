@@ -25,3 +25,12 @@ for validation ou should validate the firstName, lastName, email, strong passwor
 
 create a login api=> what you have to do is that first check that the email user send is valid one or not then check the email which user send is present in our database or not then fetch the password of that user from that database and user the function bcrypt.compare(password, dbPass);
 and this function returns the bullion and we got the bullion values from the database and according;y we can do the same.
+
+
+
+
+to read a cookie we need a npm libraray , which is called cookie parser.
+
+
+
+jason web token(jwt), 

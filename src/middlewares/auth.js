@@ -1,3 +1,5 @@
+
+
 const adminAuth = (req,res,next)=>{
     const token = "xyz"; 
     const isAdminAuthorised = "xyz"===token;
@@ -19,6 +21,8 @@ const userAuth = (req,res,next)=>{
         next();
     }
 }
+
+
 module.exports = {
     adminAuth,
     userAuth
