@@ -39,3 +39,6 @@ jason web token(jwt),
 if app.use(a,b) = then first is work as req and second worked as res
 if app.use(a,b,c) = then first is work as req, second is work as res and the third one is worked as next;
 if(a,b,c,d) = a = error
+
+how can we expire the jwt token.
+now we are gonna learn about how can we set the time to expire out token.

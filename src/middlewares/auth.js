@@ -12,14 +12,13 @@ const userAuth = async (req,res,next)=>{
         }
         const userData =  await jwt.verify(token,"Dev@Tinder$123");
 
-
         //find the user
         const userId = userData._id;
         const user = await User.findById({_id:userId});
         if(!user){
             throw new console.error("user not found");
         }
-        console.log(user);
+       // console.log(user);
         req.user = user;
         next();
         
