@@ -47,7 +47,7 @@ authRouter.post("/login",async (req,res)=>{
             //add a jwt token into the cookie.
             res.cookie("token",token,{expires: new Date(Date.now()+ 7*3600000)});
 
-            res.send("logIn successfully");
+            res.send("logIn successfully"); 
         }else{
             throw new Error("Invalid Credential");
         }
@@ -55,6 +55,16 @@ authRouter.post("/login",async (req,res)=>{
    }catch(err){
      res.status(500).send("Not able to logged in: "  + err.message);
    }
+})
+
+//logout API
+authRouter.post("/logout", async (req,res)=>{
+    try{
+        res.cookie("token",null,{expires: new Date(Date.now())});
+        res.send("logout successfully");
+    }catch(err){
+        res.send("not able to logout");
+    }
 })
 
 module.exports = authRouter;
