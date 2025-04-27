@@ -51,14 +51,8 @@ profileRouter.patch("/profile/password", userAuth, async (req, res)=>{
         if(!validator.isStrongPassword(newPassword)){
             throw new Error("password is not strong");
         }
-        const newPasswordHash = await bcrypt.hash(newPassword,10);
-
-        console.log(req.user.password);
-
-        req.user.password = newPasswordHash;
-
-        console.log(req.user.password);
-
+         const newPasswordHash = await bcrypt.hash(newPassword,10);
+         req.user.password = newPasswordHash;
          await req.user.save();
          res.send("password is updated successfully");
 

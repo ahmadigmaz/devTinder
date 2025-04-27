@@ -9,3 +9,6 @@ if(a,b,c,d) = a = error
  so lets first understand the problem statement , the problem is suppose if we have more than 100 api so wan not write our apis in a app.js file that is avery bad style of writing a code, So what we do , we can do here is , we can use express router to handle the groups of the apis, we can make a group of the apis and then use the express routwr to make an upcomming api calls . thats it
 
 
+ if user send the some data through parameters then , you should get the data through params. e.g - const data = user.params.data;
+
+

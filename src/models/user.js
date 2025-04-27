@@ -48,7 +48,7 @@ const userSchema = mongoose.Schema({
     },
     gender:{
         type:String,
-        //enum: ['Male', 'Female', 'Other'],
+        //enum: ['Male', 'Female', 'Other'],  
         set: (value) => {
             return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase(); // Format to: Male, Female, Other
         },
