@@ -3,8 +3,10 @@ const requestRouter = express.Router();
 const {userAuth } = require("../middlewares/auth");
 const ConnectionRequest = require("../models/connectionRequest");
 const user = require("../models/user");
+const { connection } = require("mongoose");
+const connectionRequest = require("../models/connectionRequest");
 
-//API connection request
+//API sending connection request
 requestRouter.post("/request/send/:status/:toUserId",userAuth,async (req,res)=>{
     try{
         const status = req.params.status;
@@ -59,6 +61,47 @@ requestRouter.post("/request/send/:status/:toUserId",userAuth,async (req,res)=>{
     }catch(err){
         res.send("Something went wrong "+ err.message);
     }
+})
+
+//API reviewing connection request
+requestRouter.post("/request/receive/:status/:requestId",userAuth, async(req, res)=>{
+    try{
+        //validate the status=>status is allowed or not
+         const isAllowed = ["accepted", "rejected"];
+         const status = req.params.status;
+         if(!isAllowed.includes(status)){
+            res.status(400).json({
+                message:"invalid status"
+            })
+         }
+         const logedInUser = req.user;
+         const requestId = req.params.requestId;
+        //divyanshu->deepali=>checked that deepali should logIn before accepting or rejecting the request
+        //status should be interested
+        //requestId should be valid meaning it should be present in our database. 
+         const validConnectionRequest = await connectionRequest.findOne({
+            _id: requestId,
+            toUserId: logedInUser._id,
+            status: "interested"
+         })
+
+         if(!validConnectionRequest){
+            res.status(400).json({
+                message: `invalid connection request: ${status}`
+            })
+         }
+
+        validConnectionRequest.status = status;
+        const data = await validConnectionRequest.save();
+        res.json({
+            message:`connection request has been ${status}`,
+            data
+        })
+
+    }catch(err){
+        res.status(400).send("Something went wrong: " + err);
+    }
+
 })
 
 

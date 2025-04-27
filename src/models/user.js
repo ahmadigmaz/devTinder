@@ -81,12 +81,11 @@ const userSchema = mongoose.Schema({
 
 userSchema.methods.getJWT = async function (){
     const user = this;
-    return  await jwt.sign({_id:user._id}, "Dev@Tinder$123",{expiresIn: "7d"}); 
+    return await jwt.sign({_id:user._id}, "Dev@Tinder$123",{expiresIn: "7d"}); 
 }
 
 userSchema.methods.passwordValidity = async function(passwordInputByUser){
     const user  = this;
     return await bcrypt.compare(passwordInputByUser,user.password);
-    
-}
+} 
 module.exports = mongoose.model('User', userSchema);

@@ -11,6 +11,11 @@
 # connectionRequestRouter
 - POST/request/send/interested/:userId
 - POST/request/send/ignored/:userId
+        //allowed request
+        //checking that toUser is valid or not
+        //checking connection request already exist or not
+
+
 - POST/request/review/accepted/:requestId
 - POST/request/review/rejected/:requestId
 
