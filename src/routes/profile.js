@@ -27,6 +27,7 @@ profileRouter.patch("/profile/edit", userAuth, async (req,res)=>{
         // const userId = req.user._id;
         // const updates = req.body;
         // const updatedUser = await User.findByIdAndUpdate(userId,updates);
+        
         // ALTERNATE WAY TO DO THIS
         const logedInUser = req.user;
         Object.keys(req.body).forEach((key)=>(

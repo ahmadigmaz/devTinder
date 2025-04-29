@@ -20,8 +20,8 @@
 - POST/request/review/rejected/:requestId
 
 # userRouter
-- GET/user/connections
 - GET/user/requests/received
+- GET/user/connections
 - GET/user/feed - // gets you the profile of the other users 
 
 

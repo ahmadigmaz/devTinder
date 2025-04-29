@@ -11,4 +11,14 @@ if(a,b,c,d) = a = error
 
  if user send the some data through parameters then , you should get the data through params. e.g - const data = user.params.data;
 
+ # PAGINATION
+ "/feed?page=1&limit=10"=> first 10 users
+ "/feed?page=2&limit=10"=> next 10 users=>from 11 to 20
+
+ funcrions to use = skip() and limit()
+ limit can be took from the req.query
+ skip = (page-1)*limit;
+
+
+
 

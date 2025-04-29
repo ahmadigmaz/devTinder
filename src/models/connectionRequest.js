@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 const connectionRequestSchema = new mongoose.Schema({
     fromUserId:{
         type: mongoose.Schema.Types.ObjectId,
+        ref: "User",//it is the reference to the User collection model, now it can take the refrence from the fromUserId and populate the data in userCollection database.
         required:true
     },
     toUserId:{
         type: mongoose.Schema.Types.ObjectId,
+        ref: "User",//it is the reference to the User collection model, now it can take the refrence from the fromUserId and populate the data in userCollection database.
         required: true
     },
     status:{

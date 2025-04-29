@@ -70,12 +70,13 @@ requestRouter.post("/request/receive/:status/:requestId",userAuth, async(req, re
          const isAllowed = ["accepted", "rejected"];
          const status = req.params.status;
          if(!isAllowed.includes(status)){
-            res.status(400).json({
+            return  res.status(400).json({
                 message:"invalid status"
             })
          }
          const logedInUser = req.user;
          const requestId = req.params.requestId;
+        
         //divyanshu->deepali=>checked that deepali should logIn before accepting or rejecting the request
         //status should be interested
         //requestId should be valid meaning it should be present in our database. 
@@ -84,9 +85,10 @@ requestRouter.post("/request/receive/:status/:requestId",userAuth, async(req, re
             toUserId: logedInUser._id,
             status: "interested"
          })
+         
 
          if(!validConnectionRequest){
-            res.status(400).json({
+            return res.status(400).json({
                 message: `invalid connection request: ${status}`
             })
          }
