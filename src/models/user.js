@@ -48,19 +48,11 @@ const userSchema = mongoose.Schema({
     },
     gender:{
         type:String,
-        //enum: ['Male', 'Female', 'Other'],  
-        set: (value) => {
-            return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase(); // Format to: Male, Female, Other
-        },
-        validate: function(value) {
-            if (!["Male", "Female", "Other"].includes(value)) {
-                throw new Error("Gender is not valid");
-            }
-        }        
+        enum: ['Male', 'Female', 'Other']       
     },
     photoUrl:{
         type:String,
-        default: "https://stock.adobe.com/search?k=dummy",
+        default: "https://media.istockphoto.com/id/1046954688/vector/vector-illustration-of-a-beautiful-dummy-girl-head.jpg?s=612x612&w=0&k=20&c=hEbKqL7wLAOtcH1_N-_SWEdYoKGBug-2y9rDtOTdKG4=",
         validate(value){
             if(!validator.isURL(value)){
                 throw new Error("URL is Invalid");
@@ -70,7 +62,7 @@ const userSchema = mongoose.Schema({
     about:{
         type:String,
         maxLength: 100,
-        default: "Default Value"
+        default: "Default Value!!!!!"
     },
     skills: {
         type: [String]

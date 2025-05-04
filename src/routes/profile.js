@@ -23,24 +23,23 @@ profileRouter.get("/profile/view",userAuth,async (req,res)=>{
 profileRouter.patch("/profile/edit", userAuth, async (req,res)=>{
     try{
       const isEditAllowed = validateEditProfileData(req);
-       if(isEditAllowed){
-        // const userId = req.user._id;
-        // const updates = req.body;
-        // const updatedUser = await User.findByIdAndUpdate(userId,updates);
-        
-        // ALTERNATE WAY TO DO THIS
+      if(!isEditAllowed){
+        throw new Error("Invalid Edit Request")
+      }
+      
         const logedInUser = req.user;
         Object.keys(req.body).forEach((key)=>(
         logedInUser[key] = req.body[key]
-    ));
+        ));
+
         await logedInUser.save();
-        res.send("updated successfully");
-      }else{
-        throw new Error("edit is not allowed");
-    }
+        res.json({
+            message:`${logedInUser.firstName}, your profile updated successfully`,
+            data: logedInUser
+        })
 
     }catch(err){
-        res.send("profile is not edited " + err.message);
+        res.status(400).send("ERROR: " + err.message);
     }
 })
 

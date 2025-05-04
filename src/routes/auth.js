@@ -13,11 +13,11 @@ authRouter.post("/signup", async (req,res)=>{
         //validation of the data
         validation(req);
         //password Encryption
-        const {firstName, lastName, emailId ,password} = req.body;
+        const {firstName, lastName, emailId ,password,age,about,photoUrl,gender} = req.body;
         const passwordHash = await bcrypt.hash(password,10);
 
         //creating a new instance of the user model
-        const user  = new User({firstName, lastName,emailId,password:passwordHash});
+        const user  = new User({firstName, lastName,emailId,password:passwordHash,age,about,photoUrl,gender});
         await user.save();
         res.send("data is successfully added into the database");
     }catch(err){
@@ -46,7 +46,9 @@ authRouter.post("/login",async (req,res)=>{
             //add a jwt token into the cookie.
             res.cookie("token",token,{expires: new Date(Date.now()+ 7*3600000)});
 
-            res.send("logIn successfully"); 
+            res.json({
+                data:user
+            }); 
         }else{
             throw new Error("Invalid Credential");
         }

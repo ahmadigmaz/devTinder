@@ -8,7 +8,7 @@ const userAuth = async (req,res,next)=>{
        
         //validate the token
         if(!token){
-            throw new Error("token is not valid");
+            return res.status(401).send("Login Again Please")
         }
         const userData =  await jwt.verify(token,"Dev@Tinder$123");
 
