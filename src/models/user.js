@@ -52,7 +52,7 @@ const userSchema = mongoose.Schema({
     },
     photoUrl:{
         type:String,
-        default: "https://media.istockphoto.com/id/1046954688/vector/vector-illustration-of-a-beautiful-dummy-girl-head.jpg?s=612x612&w=0&k=20&c=hEbKqL7wLAOtcH1_N-_SWEdYoKGBug-2y9rDtOTdKG4=",
+        default: "https://www.un.org/pga/wp-content/uploads/sites/53/2018/09/Dummy-image-1.jpg",
         validate(value){
             if(!validator.isURL(value)){
                 throw new Error("URL is Invalid");
