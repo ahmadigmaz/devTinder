@@ -14,7 +14,7 @@ requestRouter.post("/request/send/:status/:toUserId",userAuth,async (req,res)=>{
         const fromUserId = req.user._id;
 
         //allowed request
-        const isAllowed = ["ignore","interested"];
+        const isAllowed = ["ignored","interested"];
         if(!isAllowed.includes(status)){
             throw new Error(`${status} is not allowed`)
         }
@@ -55,7 +55,7 @@ requestRouter.post("/request/send/:status/:toUserId",userAuth,async (req,res)=>{
 
         res.json({
             message:message,
-            data:data
+            data
         })
 
     }catch(err){
@@ -67,7 +67,7 @@ requestRouter.post("/request/send/:status/:toUserId",userAuth,async (req,res)=>{
 requestRouter.post("/request/receive/:status/:requestId",userAuth, async(req, res)=>{
     try{
         //validate the status=>status is allowed or not
-         const isAllowed = ["reject", "accept"];
+         const isAllowed = ["rejected", "accepted"];
          const status = req.params.status;
          if(!isAllowed.includes(status)){
             return  res.status(400).json({
