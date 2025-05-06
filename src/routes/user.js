@@ -104,8 +104,8 @@ userRouter.get("/user/feed", userAuth, async (req, res) =>{
       }).select(USER_VALUES).skip(skip).limit(limit);
 
 
+  
         res.json({
-            message: "Your feed is!!!!",
             data:feed
         })
 

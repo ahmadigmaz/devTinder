@@ -39,7 +39,12 @@ requestRouter.post("/request/send/:status/:toUserId",userAuth,async (req,res)=>{
         }
 
 
-        const connectionRequest = new ConnectionRequest({status,toUserId,fromUserId});
+        const connectionRequest = new ConnectionRequest({
+            status,
+            toUserId,
+            fromUserId
+        });
+
         const data =  await connectionRequest.save();
         const sendersName = await user.findById(fromUserId).select("firstName");
         const receiversName = await user.findById(toUserId).select("firstName");
