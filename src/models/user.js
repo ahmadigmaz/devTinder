@@ -50,12 +50,12 @@ const userSchema = mongoose.Schema({
     },
     photoUrl:{
         type:String,
-        default: "https://www.un.org/pga/wp-content/uploads/sites/53/2018/09/Dummy-image-1.jpg",
-        validate(value){
-            if(!validator.isURL(value)){
-                throw new Error("URL is Invalid");
-            }
-        }
+        default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIf4R5qPKHPNMyAqV-FjS_OTBB8pfUV29Phg&s",
+        // validate(value){
+        //     if(!validator.isURL(value)){
+        //         throw new Error("URL is Invalid");
+        //     }
+        // }
     },
     about:{
         type:String,
