@@ -7,7 +7,7 @@ const validator = require("validator");
 
 
 //signUp API
-authRouter.post("/signup", async (req,res)=>{
+authRouter.post("/signup", async (req,res) => {
     
     try{
         //validation of the data
@@ -18,8 +18,18 @@ authRouter.post("/signup", async (req,res)=>{
 
         //creating a new instance of the user model
         const user  = new User({firstName, lastName,emailId,password:passwordHash,age,about,photoUrl,gender});
-        await user.save();
-        res.send("data is successfully added into the database");
+        const savedUser = await user.save();
+
+         //JWT token-
+         const token = await savedUser.getJWT();
+
+         //add a jwt token into the cookie.
+         res.cookie("token",token,{expires: new Date(Date.now()+ 7*3600000)});
+
+        res.send({
+            message:"data is successfully added into the database",
+            data: savedUser
+        });
     }catch(err){
         res.status(500).send("Something went Wrong " + err.message);
     }

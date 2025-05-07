@@ -59,7 +59,7 @@ const userSchema = mongoose.Schema({
     },
     about:{
         type:String,
-        maxLength: 100,
+        maxLength: 1000,
         default: "Default Value!!!!!"
     },
     skills: {
