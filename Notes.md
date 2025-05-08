@@ -20,5 +20,23 @@ if(a,b,c,d) = a = error
  skip = (page-1)*limit;
 
 
+ # AWS 
+ - create an account on AWS
+ - move to the console
+ - search ec2 in search bar 
+ - click om it
+ - Luanch a new instance
+ - select the os i choose ubuntu
+ - then create a login pair , a secret pam file
+ - then cliick launch , it takes some times
+ - then click on view your instances
+ - then click your instance id
+ - then click connect.
+ - login through terminal. go to SSH.
+ - follow the steps of SSh terminal
+ - in terminal go to the folder where that secret key is located and then run the command gicen in the SS terminal.
+ - 
+
+
 
 
