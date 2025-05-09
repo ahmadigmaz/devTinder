@@ -34,7 +34,20 @@ if(a,b,c,d) = a = error
  - then click connect.
  - login through terminal. go to SSH.
  - follow the steps of SSh terminal
- - in terminal go to the folder where that secret key is located and then run the command gicen in the SS terminal.
+ - in terminal go to the folder where that secret key is located and then run the command given in the SS terminal.
+
+
+ # Nginx
+ to host our product
+ - command used
+ sudo apt update
+ sudo apt install nginx
+ sudo systemctl start nginx
+ sudo systemctl enable nginx
+ copy code from disk folder to nginx
+ sudo scp -r dist/* /var/www/html
+ enable port 80 in your instances
+
  - 
 
 
