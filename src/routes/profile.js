@@ -22,11 +22,11 @@ profileRouter.get("/profile/view",userAuth,async (req,res)=>{
 //profile edit
 profileRouter.patch("/profile/edit", userAuth, async (req,res)=>{
     try{
-      const isEditAllowed = validateEditProfileData(req);
-      if(!isEditAllowed){
-        throw new Error("Invalid Edit Request")
-      }
-      
+        const isEditAllowed = validateEditProfileData(req);
+        if(!isEditAllowed){
+            throw new Error("Invalid Edit Request")
+        }
+          
         const logedInUser = req.user;
         Object.keys(req.body).forEach((key)=>(
         logedInUser[key] = req.body[key]

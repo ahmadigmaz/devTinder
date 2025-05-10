@@ -50,12 +50,7 @@ const userSchema = mongoose.Schema({
     },
     photoUrl:{
         type:String,
-        default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIf4R5qPKHPNMyAqV-FjS_OTBB8pfUV29Phg&s",
-        // validate(value){
-        //     if(!validator.isURL(value)){
-        //         throw new Error("URL is Invalid");
-        //     }
-        // }
+        default: "https://www.shutterstock.com/image-vector/default-avatar-profile-icon-vector-600nw-1745180411.jpg",
     },
     about:{
         type:String,
